@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 14:56:14 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/05 00:03:54 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 18:17:34 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	init_env(t_mlx *env)
 {
 	env->fractal = -1;
-	env->keydown = 0;
+	env->refresh = 0;
 	env->zoom = 1;
 	env->pad_x = 0;
 	env->pad_y = 0;
@@ -29,7 +29,7 @@ static void	init_env(t_mlx *env)
 static int	click_close(t_mlx *env)
 {
 	(void)env;
-	exit(1);
+	exit(EXIT_SUCCESS);
 }
 
 int			main(void)
@@ -45,8 +45,7 @@ int			main(void)
 	mlx_string_put(env.mlx, env.win, 50, 50, 0xFFFFFF, "JULIA (1)");
 	mlx_string_put(env.mlx, env.win, (WIN_W - 140) / 2, 50, 0xFFFFFF, "MANDELBROT (2)");
 	mlx_string_put(env.mlx, env.win, WIN_W - 140, 50, 0xFFFFFF, "OTHER (3)");
-	mlx_hook(env.win, 2, 0, hook_keydown, &env);
-	mlx_hook(env.win, 3, 0, hook_keyup, &env);
+	mlx_key_hook(env.win, hook_keypress, &env);
 	mlx_hook(env.win, 17, 0, click_close, &env);
 	mlx_loop_hook(env.mlx, img_refresh, &env);
 	mlx_loop(env.mlx);

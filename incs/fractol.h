@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:49:58 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 17:43:35 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 17:58:18 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_mlx
 	void		*win;
 	char		*win_name;
 	t_img		img;
-	int			keydown;
+	int			refresh;
 	int			fractal;
 	double		pad_x;
 	double		pad_y;
@@ -76,8 +76,7 @@ typedef struct	s_mlx
 **	----------------------------- FRACTOL FUNCTIONS ----------------------------
 */
 
-int				hook_keydown(int keycode, t_mlx *env);
-int				hook_keyup(int keycode, t_mlx *env);
+int				hook_keypress(int keycode, t_mlx *env);
 int				img_refresh(t_mlx *env);
 int				get_color(int i);
 void			draw_image(t_mlx *env);
