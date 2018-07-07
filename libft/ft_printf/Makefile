@@ -6,7 +6,7 @@
 #    By: femaury <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 20:03:09 by femaury           #+#    #+#              #
-#    Updated: 2018/07/07 22:16:59 by femaury          ###   ########.fr        #
+#    Updated: 2018/07/07 23:29:14 by femaury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,13 +32,11 @@ LIB_OBJ = $(addprefix $(LIB_OBJ_PATH)/,$(LIB_OBJ_NAME))
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-ifndef ECHO
 T := $(words $(SRC_NAME))
 N := x
 C = $(words $N)$(eval N := x $N)
 ECHO = echo "\r[\033[33m`expr $C '*' 100 / $T`%\033[0m] \
 	   Compiling \033[35mft_printf\033[0m...\c"
-endif
 
 .PHONY: all, clean, fclean, re
 
