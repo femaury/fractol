@@ -6,7 +6,7 @@
 #    By: femaury <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 20:03:09 by femaury           #+#    #+#              #
-#    Updated: 2018/07/07 18:03:00 by femaury          ###   ########.fr        #
+#    Updated: 2018/07/07 22:18:14 by femaury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,23 +22,30 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 MLXFLAGS = -framework OpenGL -framework AppKit
 
+ifndef ECHO
+T := $(words $(SRC_NAME))
+N := x
+C = $(words $N)$(eval N := x $N)
+ECHO = echo "\r[\033[33m`expr $C '*' 100 / $T`%\033[0m] \
+	   Compiling \033[35mfractol\033[0m...\c"
+endif
+
 .PHONY: all, clean, fclean, re
 
 all:
 	@$(MAKE) -C libft/
 	@$(MAKE) -C minilibx/
-	@echo ""
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJ) libft/libft.a
 	@$(CC) $(CFLAGS) -Iincs -o $(NAME) $(OBJ) libft/libft.a \
 		libft/ft_printf/libftprintf.a minilibx/libmlx.a $(MLXFLAGS)
-	@echo "\n[\033[32mOK\033[0m] $(NAME) compiled successfully."
+	@echo "\r[\033[32m100%\033[0m] \033[35m$(NAME)\033[0m is ready!   "
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c incs/fractol.h
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(CFLAGS) -Iincs -o $@ -c $<
-	@echo "[\033[32mOK\033[0m] $@ compiled successfully."
+	@$(ECHO)
 
 clean:
 ifeq ($(MAKECMDGOALS), clean)
@@ -46,19 +53,22 @@ ifeq ($(MAKECMDGOALS), clean)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 	@$(MAKE) -C libft/ clean
 	@$(MAKE) -C minilibx/ clean
-	@echo "\n[\033[32mOK\033[0m] minilibx cleaned.\n"
-	@echo "\n[\033[32mOK\033[0m] $(NAME) objects cleaned.\n"
+	@echo "[\033[32mOK\033[0m] minilibx cleaned."
+	@echo "[\033[32mOK\033[0m] $(NAME) objects cleaned."
 else
 	@$(RM) $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
-	@echo "\n[\033[32mOK\033[0m] $(NAME) objects cleaned.\n"
+	@echo "[\033[32mOK\033[0m] $(NAME) objects cleaned."
 endif
 
 fclean: clean
 	@$(RM) $(NAME)
 	@$(MAKE) -C libft/ fclean
 	@$(MAKE) -C minilibx/ clean
-	@echo "\n[\033[32mOK\033[0m] minilibx cleaned.\n"
-	@echo "\n[\033[32mOK\033[0m] $(NAME) \033[31mhas been removed.\033[0m\n"
+	@echo "[\033[32mOK\033[0m] minilibx cleaned."
+	@echo "[\033[32mOK\033[0m] $(NAME) \033[31mhas been removed.\033[0m"
+ifeq ($(MAKECMDGOALS), re)
+	@echo ""
+endif
 
 re: fclean all

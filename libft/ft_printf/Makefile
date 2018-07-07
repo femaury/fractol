@@ -6,7 +6,7 @@
 #    By: femaury <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 20:03:09 by femaury           #+#    #+#              #
-#    Updated: 2018/06/21 17:12:08 by femaury          ###   ########.fr        #
+#    Updated: 2018/07/07 22:16:59 by femaury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,14 @@ LIB_OBJ = $(addprefix $(LIB_OBJ_PATH)/,$(LIB_OBJ_NAME))
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
+ifndef ECHO
+T := $(words $(SRC_NAME))
+N := x
+C = $(words $N)$(eval N := x $N)
+ECHO = echo "\r[\033[33m`expr $C '*' 100 / $T`%\033[0m] \
+	   Compiling \033[35mft_printf\033[0m...\c"
+endif
+
 .PHONY: all, clean, fclean, re
 
 all: $(NAME)
@@ -39,12 +47,12 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT)
 	@ar rc $@ $(OBJ) $(LIB_OBJ)
 	@ranlib $@
-	@echo "\n[\033[32mOK\033[0m] $(NAME) is ready!\n"
+	@echo "\r[\033[32m100%\033[0m] \033[35m$(NAME)\033[0m is ready!"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(CFLAGS) -Iincs -o $@ -c $<
-	@echo "\033[36mlibft/ft_printf\033[0m: [\033[32mOK\033[0m] $@ successfully compiled."
+	@$(ECHO)
 
 $(LIBFT): $(LIB_OBJ)
 	@$(MAKE) -C ../
@@ -52,10 +60,10 @@ $(LIBFT): $(LIB_OBJ)
 clean:
 	@$(RM) $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
-	@echo "\n[\033[32mOK\033[0m] $(NAME) objects cleaned.\n"
+	@echo "[\033[32mOK\033[0m] $(NAME) objects cleaned."
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo "\n[\033[32mOK\033[0m] $(NAME) \033[31mhas been removed.\033[0m\n"
+	@echo "[\033[32mOK\033[0m] $(NAME) \033[31mhas been removed.\033[0m"
 
 re: fclean all
