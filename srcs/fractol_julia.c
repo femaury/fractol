@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 02:30:59 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 18:40:43 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 19:57:31 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	draw_julia(t_mlx *env)
 			{
 				old.r = new.r;
 				old.i = new.i;
-				new.r = (old.r * old.r) - (old.i * old.i) - 0.7;
-				new.i = 2 * old.r * old.i + 0.27015;
+				new.r = (old.r * old.r) - (old.i * old.i) + env->c.r;
+				new.i = 2 * old.r * old.i + env->c.i;
 			}
 			env->img.data[y * IMG_W + x] =  get_color(i, env->max_iter);
 		}

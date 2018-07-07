@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 14:56:14 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 19:13:24 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 20:02:58 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	init_env(t_mlx *env)
 {
 	env->max_iter = 200;
 	env->refresh = 0;
+	env->motion = 0;
 	env->zoom = 1;
 	env->pad_x = 0;
 	env->pad_y = 0;
@@ -71,7 +72,8 @@ int			main(int ac, char **av)
 	mlx_put_image_to_window(env.mlx, env.win, env.img.ptr, 0, 0);
 	mlx_key_hook(env.win, hook_keypress, &env);
 	mlx_mouse_hook(env.win, hook_mousepress, &env);
-	mlx_hook(env.win, 17, 0, click_close, &env);
+	mlx_hook(env.win, DESTROYNOTIFY, NOEVENTMASK, click_close, &env);
+	mlx_hook(env.win, MOTIONNOTIFY, POINTERMOTIONMASK, hook_mousemove, &env);
 	mlx_loop_hook(env.mlx, img_refresh, &env);
 	mlx_loop(env.mlx);
 	return (0);
