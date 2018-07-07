@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 02:30:59 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/05 00:08:13 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 17:42:05 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	draw_mandelbrot(t_mlx *env)
 			env->c.i = ((double)y - IMG_H / 2.0)
 				/ (0.5 * env->zoom * IMG_H) + env->pad_y;
 			new.r = 0;
-			old.r = 0;
+			new.i = 0;
 			while (++i < MAX_ITER && (new.r * new.r + new.i * new.i <= 4))
 			{
 				old.r = new.r;
@@ -37,6 +37,6 @@ void	draw_mandelbrot(t_mlx *env)
 				new.r = (old.r * old.r) - (old.i * old.i) + env->c.r;
 				new.i = 2 * old.r * old.i + env->c.i;
 			}
-			env->img.data[y * IMG_W + x] =  get_color(i);
+			env->img.data[y * IMG_W + x] = get_color(i);
 		}
 }
