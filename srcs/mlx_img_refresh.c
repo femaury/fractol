@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:42:43 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 18:14:29 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 19:01:42 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			img_refresh(t_mlx *env)
 {
-	if (!env->refresh || env->fractal == -1)
+	if (!env->refresh)
 		return (1);
 	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img.ptr);

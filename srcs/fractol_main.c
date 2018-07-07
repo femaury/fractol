@@ -6,15 +6,39 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 14:56:14 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 18:17:34 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 19:01:07 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+static void	check_arguments(int ac, char **av, t_mlx *env)
+{
+	if (ac != 2)
+	{
+		ft_printf("usage: ./fractol fractal_name\nSupported fractals:\n"
+				"%20s%s\n%20s%s\n%20s%s\n", "", "Julia", "",
+				"Mandelbrot", "", "Other");
+		exit(EXIT_FAILURE);
+	}
+	if (!ft_strcmp("Julia", av[1]) || !ft_strcmp("julia", av[1]))
+		env->fractal = 0;
+	else if (!ft_strcmp("Mandelbrot", av[1]) || !ft_strcmp("mandelbrot", av[1]))
+		env->fractal = 1;
+	else if (!ft_strcmp("Other", av[1]) || !ft_strcmp("other", av[1]))
+		env->fractal = 2;
+	else
+		{
+			ft_printf("usage: ./fractol fractal_name\nSupported fractals:\n"
+					"%20s%s\n%20s%s\n%20s%s\n", "", "Julia", "", 
+					"Mandelbrot", "", "Other");
+			exit(EXIT_FAILURE);
+		}
+}
+
 static void	init_env(t_mlx *env)
 {
-	env->fractal = -1;
+	env->max_iter = 200;
 	env->refresh = 0;
 	env->zoom = 1;
 	env->pad_x = 0;
@@ -32,19 +56,19 @@ static int	click_close(t_mlx *env)
 	exit(EXIT_SUCCESS);
 }
 
-int			main(void)
+int			main(int ac, char **av)
 {
 	t_mlx	env;
 
 	init_env(&env);
+	check_arguments(ac, av, &env);
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, WIN_W, WIN_H, "Fract'ol");
 	env.img.ptr = mlx_new_image(env.mlx, IMG_W, IMG_H);
+	env.img.data = (unsigned int *)mlx_get_data_addr(env.img.ptr,
+			&env.img.bpp, &env.img.ln_size, &env.img.endian);
+	(*env.draw_fractal[env.fractal]) (&env);
 	mlx_put_image_to_window(env.mlx, env.win, env.img.ptr, 0, 0);
-	mlx_string_put(env.mlx, env.win, WIN_W / 2 - 100, 20, 0xFFFFFF, "Choose your fractal");
-	mlx_string_put(env.mlx, env.win, 50, 50, 0xFFFFFF, "JULIA (1)");
-	mlx_string_put(env.mlx, env.win, (WIN_W - 140) / 2, 50, 0xFFFFFF, "MANDELBROT (2)");
-	mlx_string_put(env.mlx, env.win, WIN_W - 140, 50, 0xFFFFFF, "OTHER (3)");
 	mlx_key_hook(env.win, hook_keypress, &env);
 	mlx_hook(env.win, 17, 0, click_close, &env);
 	mlx_loop_hook(env.mlx, img_refresh, &env);

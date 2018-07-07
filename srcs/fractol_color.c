@@ -6,20 +6,20 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/04 22:43:44 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/04 22:43:57 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 18:40:00 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		get_color(int i)
+int		get_color(int i, int max_iter)
 {
 	int		r;
 	int		g;
 	int		b;
 	double	t;
 
-	t = (double)i / MAX_ITER;
+	t = (double)i / max_iter;
 	r = (int)( 9 * (1 - t) * t * t * t * 255);
 	g = (int)( 15 * ( 1 - t ) * ( 1 - t ) * t * t * 255);
 	b = (int)( 8.5 * ( 1 - t ) * ( 1 - t ) * ( 1 - t ) * t * 255);

@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:49:58 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 17:58:18 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 18:40:11 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # define WIN_H 450
 # define IMG_W WIN_W
 # define IMG_H WIN_H
-# define MAX_ITER 400
 
 /*
 **	-------------------------------- STRUCTURES --------------------------------
@@ -65,6 +64,7 @@ typedef struct	s_mlx
 	t_img		img;
 	int			refresh;
 	int			fractal;
+	int			max_iter;
 	double		pad_x;
 	double		pad_y;
 	double		zoom;
@@ -78,7 +78,7 @@ typedef struct	s_mlx
 
 int				hook_keypress(int keycode, t_mlx *env);
 int				img_refresh(t_mlx *env);
-int				get_color(int i);
+int				get_color(int i, int max_iter);
 void			draw_image(t_mlx *env);
 void			draw_julia(t_mlx *env);
 void			draw_mandelbrot(t_mlx *env);
