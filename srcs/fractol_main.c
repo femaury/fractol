@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 14:56:14 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 19:01:07 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 19:13:24 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int			main(int ac, char **av)
 	(*env.draw_fractal[env.fractal]) (&env);
 	mlx_put_image_to_window(env.mlx, env.win, env.img.ptr, 0, 0);
 	mlx_key_hook(env.win, hook_keypress, &env);
+	mlx_mouse_hook(env.win, hook_mousepress, &env);
 	mlx_hook(env.win, 17, 0, click_close, &env);
 	mlx_loop_hook(env.mlx, img_refresh, &env);
 	mlx_loop(env.mlx);

@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 11:52:10 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 19:01:26 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 19:31:45 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	reset_env(t_mlx *env)
 int			hook_keypress(int keycode, t_mlx *env)
 {
 	if (keycode == PL_KEY || keycode == NKPL_KEY)
-		env->zoom += 0.5 * env->zoom;
+		env->max_iter += 50;
 	else if (keycode == MN_KEY || keycode == NKMN_KEY)
-		env->zoom -= env->zoom > 1 ? 0.5 * env->zoom : 0;
+		env->max_iter -= env->max_iter == 50 ? 0 : 50;
 	else if (keycode == UP_KEY)
 		env->pad_y -= 1.0 / (env->zoom * 2);
 	else if (keycode == DOWN_KEY)
@@ -36,14 +36,26 @@ int			hook_keypress(int keycode, t_mlx *env)
 		env->pad_x += 1.0 / (env->zoom * 2);
 	else if (keycode == LEFT_KEY)
 		env->pad_x -= 1.0 / (env->zoom * 2);
-	else if (keycode == PUP_KEY)
-		env->max_iter += 50;
-	else if (keycode == PDOWN_KEY)
-		env->max_iter -= env->max_iter == 50 ? 0 : 50;
 	else if (keycode == CLR_KEY)
 		reset_env(env);
 	else if (keycode == ESC_KEY)
 		exit(EXIT_SUCCESS);
+	env->refresh = 1;
+	return (0);
+}
+
+int			hook_mousepress(int button, int x, int y, t_mlx *env)
+{
+	if (button == BUT1_KEY || button == SCROLLUP_KEY)
+	{
+		ft_printf("Clicked (%d, %d)\n", x, y);
+		env->zoom += 0.5 * env->zoom;
+	}
+	else if (button == BUT2_KEY || button == SCROLLDOWN_KEY)
+	{
+		ft_printf("Clicked (%d, %d)\n", x, y);
+		env->zoom -= env->zoom > 1 ? 0.5 * env->zoom : 0;
+	}
 	env->refresh = 1;
 	return (0);
 }
