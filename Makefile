@@ -6,7 +6,7 @@
 #    By: femaury <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 20:03:09 by femaury           #+#    #+#              #
-#    Updated: 2018/07/07 22:18:14 by femaury          ###   ########.fr        #
+#    Updated: 2018/07/07 22:23:37 by femaury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+LIB = libft/libft.a libft/ft_printf/libftprintf.a minilibx/libmlx.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 MLXFLAGS = -framework OpenGL -framework AppKit
@@ -38,8 +39,7 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJ) libft/libft.a
-	@$(CC) $(CFLAGS) -Iincs -o $(NAME) $(OBJ) libft/libft.a \
-		libft/ft_printf/libftprintf.a minilibx/libmlx.a $(MLXFLAGS)
+	@$(CC) $(CFLAGS) -Iincs -o $(NAME) $(OBJ) $(LIB) $(MLXFLAGS)
 	@echo "\r[\033[32m100%\033[0m] \033[35m$(NAME)\033[0m is ready!   "
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c incs/fractol.h

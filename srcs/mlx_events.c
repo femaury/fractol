@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 11:52:10 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 20:02:48 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/07 23:00:20 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,27 @@ int			hook_mousepress(int button, int x, int y, t_mlx *env)
 		return (1);
 	if (button == BUT1_KEY || button == SCROLLUP_KEY)
 	{
-		ft_printf("Clicked (%d, %d)\n", x, y);
 		env->zoom += 0.5 * env->zoom;
+		if ((double)x >= (double)IMG_W / 2.0)
+			env->pad_x += 1.0 / (env->zoom * 2);
+		else
+			env->pad_x -= 1.0 / (env->zoom * 2);
+		if ((double)y >= (double)IMG_H / 2.0)
+			env->pad_y += 1.0 / (env->zoom * 2);
+		else
+			env->pad_y -= 1.0 / (env->zoom * 2);
 	}
 	else if (button == BUT2_KEY || button == SCROLLDOWN_KEY)
 	{
-		ft_printf("Clicked (%d, %d)\n", x, y);
 		env->zoom -= env->zoom > 1 ? 0.5 * env->zoom : 0;
+		if ((double)x >= (double)IMG_W / 2.0)
+			env->pad_x -= 1.0 / (env->zoom * 2);
+		else
+			env->pad_x += 1.0 / (env->zoom * 2);
+		if ((double)y >= (double)IMG_H / 2.0)
+			env->pad_y -= 1.0 / (env->zoom * 2);
+		else
+			env->pad_y += 1.0 / (env->zoom * 2);
 	}
 	env->refresh = 1;
 	return (0);
