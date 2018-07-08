@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 14:56:14 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/08 02:15:32 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/08 02:59:41 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ static void	check_arguments(int ac, char **av, t_mlx *env)
 	{
 		ft_printf("usage: ./fractol fractal_name\nSupported fractals:\n"
 				"%20s%s\n%20s%s\n%20s%s\n", "", "Julia", "",
-				"Mandelbrot", "", "Burning ship");
+				"Mandelbrot", "", "Burningship");
 		exit(EXIT_FAILURE);
 	}
 	if (!ft_strcmp("Julia", av[1]) || !ft_strcmp("julia", av[1]))
 		env->fractal = 0;
 	else if (!ft_strcmp("Mandelbrot", av[1]) || !ft_strcmp("mandelbrot", av[1]))
 		env->fractal = 1;
-	else if (!ft_strcmp("Burning ship", av[1])
-			|| !ft_strcmp("burning ship", av[1]))
+	else if (!ft_strcmp("Burningship", av[1])
+			|| !ft_strcmp("burningship", av[1]))
 		env->fractal = 2;
 	else
 	{
 		ft_printf("usage: ./fractol fractal_name\nSupported fractals:\n"
 				"%20s%s\n%20s%s\n%20s%s\n", "", "Julia", "",
-				"Mandelbrot", "", "Burning ship");
+				"Mandelbrot", "", "Burningship");
 		exit(EXIT_FAILURE);
 	}
 }
