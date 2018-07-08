@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:42:43 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 23:00:50 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/08 02:58:25 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			img_refresh(t_mlx *env)
 	env->img.ptr = mlx_new_image(env->mlx, IMG_W, IMG_H);
 	env->img.data = (unsigned int *)mlx_get_data_addr(env->img.ptr,
 			&env->img.bpp, &env->img.ln_size, &env->img.endian);
-	(*env->draw_fractal[env->fractal]) (env);
+	(*env->draw_fractal[env->fractal])(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img.ptr, 0, 0);
 	env->refresh = 0;
 	return (0);

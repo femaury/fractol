@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/09 15:49:58 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 19:45:11 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/08 02:15:11 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int				hook_mousepress(int button, int x, int y, t_mlx *env);
 int				hook_mousemove(int x, int y, t_mlx *env);
 int				img_refresh(t_mlx *env);
 int				get_color(int i, int max_iter);
-void			draw_image(t_mlx *env);
 void			draw_julia(t_mlx *env);
 void			draw_mandelbrot(t_mlx *env);
+void			draw_burning_ship(t_mlx *env);
 
 #endif

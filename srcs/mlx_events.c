@@ -6,7 +6,7 @@
 /*   By: femaury <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 11:52:10 by femaury           #+#    #+#             */
-/*   Updated: 2018/07/07 23:00:20 by femaury          ###   ########.fr       */
+/*   Updated: 2018/07/08 02:10:40 by femaury          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,24 @@ int			hook_keypress(int keycode, t_mlx *env)
 
 int			hook_mousepress(int button, int x, int y, t_mlx *env)
 {
+	double	interpolation;
+
+	interpolation = 1.0 / (env->zoom * 2);
 	if (x < 0 || y < 0)
 		return (1);
+	x = x - IMG_W / 2;
+	y = y - IMG_H / 2;
 	if (button == BUT1_KEY || button == SCROLLUP_KEY)
 	{
 		env->zoom += 0.5 * env->zoom;
-		if ((double)x >= (double)IMG_W / 2.0)
-			env->pad_x += 1.0 / (env->zoom * 2);
-		else
-			env->pad_x -= 1.0 / (env->zoom * 2);
-		if ((double)y >= (double)IMG_H / 2.0)
-			env->pad_y += 1.0 / (env->zoom * 2);
-		else
-			env->pad_y -= 1.0 / (env->zoom * 2);
+		env->pad_x += x < 0 ? -interpolation : interpolation;
+		env->pad_y += y < 0 ? -interpolation : interpolation;
 	}
 	else if (button == BUT2_KEY || button == SCROLLDOWN_KEY)
 	{
 		env->zoom -= env->zoom > 1 ? 0.5 * env->zoom : 0;
-		if ((double)x >= (double)IMG_W / 2.0)
-			env->pad_x -= 1.0 / (env->zoom * 2);
-		else
-			env->pad_x += 1.0 / (env->zoom * 2);
-		if ((double)y >= (double)IMG_H / 2.0)
-			env->pad_y -= 1.0 / (env->zoom * 2);
-		else
-			env->pad_y += 1.0 / (env->zoom * 2);
+		env->pad_x += x < 0 ? interpolation : -interpolation;
+		env->pad_y += y < 0 ? interpolation : -interpolation;
 	}
 	env->refresh = 1;
 	return (0);

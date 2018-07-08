@@ -6,14 +6,14 @@
 #    By: femaury <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 20:03:09 by femaury           #+#    #+#              #
-#    Updated: 2018/07/07 23:36:30 by femaury          ###   ########.fr        #
+#    Updated: 2018/07/08 02:14:29 by femaury          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 SRC_PATH = srcs
-SRC_NAME = fractol_main.c fractol_draw.c mlx_events.c mlx_img_refresh.c \
-		   fractol_julia.c fractol_color.c fractol_mandelbrot.c
+SRC_NAME = fractol_main.c mlx_events.c mlx_img_refresh.c fractol_julia.c \
+		   fractol_color.c fractol_mandelbrot.c fractol_burning_ship.c
 OBJ_PATH = objs
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
